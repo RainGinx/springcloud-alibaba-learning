@@ -1,0 +1,49 @@
+name: Java CI     #Actions名称
+
+#Action触发条件
+on:
+  push:
+    branches:
+      - action
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots verify
+      - name: Set SSH Environment
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.RSA_ALIYUN }}" > ~/.ssh/id_rsa.pub
+          cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+          chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
+          ls -l ~/.ssh/
+      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
+        name: scp
+        with:
+          local: './'                                                  # Local file path - REQUIRED false - DEFAULT ./
+          remote: '/home/software/springcloud'                                     # Remote file path - REQUIRED false - DEFAULT ~/
+          host: ${{ secrets.HOST }}                                      # Remote server address - REQUIRED true
+          user: ${{ secrets.USER }}                                      # Remote server user - REQUIRED true
+          password: ${{ secrets.PASSWORD }}                              # User password - REQUIRED at least one of "password" or "key"
+          pre_upload: echo "This will be executed before the upload!"  # Command to run via ssh before scp upload - REQUIRED false
+          post_upload: echo "This will be executed after the upload!"  # Command to run via ssh after scp upload - REQUIRED false
+          ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+          scp_options: -v                                              # Flags to use during scp - REQUIRED false - DEFAULT ''
+#      - name: Run sshpass commands
+#        uses: matheusvanzan/sshpass-action@v2
+#        with:
+#          host: ${{ secrets.HOST }}
+#          user: ${{ secrets.USER }}
+#          pass: ${{ secrets.PASSWORD }}
+#          run: |
+#            source /etc/profile
+#            sh /home/software/restart.sh springboot-action-learning-1.0-SNAPSHOT.jar

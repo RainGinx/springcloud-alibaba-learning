@@ -117,7 +117,7 @@ public class AdminFilter extends BasicHttpAuthenticationFilter {
         }catch (TokenExpiredException e){
             //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTYyMzM5MTQwMywidXNlcm5hbWUiOiJ0b20ifQ.3cQdvFFOaQnIuGj43242ltcmxOOQ5bjBSGcg8zokDoI
 //            throw new UnauthorizedException("The Token has expired");
-            responseError(response,401,"The Token has expired");
+            responseError(response,401,e.getMessage());
             return false;
         }
     }

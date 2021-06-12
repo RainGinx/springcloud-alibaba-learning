@@ -1,5 +1,6 @@
 package com.chb.learning.admin.controller;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.chb.learning.common.auth.entity.JwtToken;
 import com.chb.learning.common.entity.po.User;
 import com.chb.learning.common.entity.vo.BaseResponse;
@@ -57,6 +58,8 @@ public class LoginController {
             msg = "该账户已被锁定，如需解锁请联系管理员！";
         } catch (AuthenticationException ae) { // 其他身份验证异常
             msg = "登录异常，请联系管理员！";
+        }catch (TokenExpiredException e){
+            msg ="登录超时，请重新登录";
         }
 
         if (loginSuccess) {
