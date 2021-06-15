@@ -40,7 +40,7 @@ jobs:
 #            source /etc/profile
 #            sh /home/software/springcloud/admin/restart.sh admin.jar
           ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-          scp_options: admin.jar                                               # Flags to use during scp - REQUIRED false - DEFAULT ''
+          scp_options: /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target/admin.jar                                               # Flags to use during scp - REQUIRED false - DEFAULT ''
 #      - name: Run sshpass commands
 #        uses: matheusvanzan/sshpass-action@v2
 #        with:
