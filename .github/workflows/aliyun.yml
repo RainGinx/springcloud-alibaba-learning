@@ -38,12 +38,12 @@ jobs:
           post_upload: echo "This will be executed after the upload!"  # Command to run via ssh after scp upload - REQUIRED false
           ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
           scp_options: -v                                              # Flags to use during scp - REQUIRED false - DEFAULT ''
-#      - name: Run sshpass commands
-#        uses: matheusvanzan/sshpass-action@v2
-#        with:
-#          host: ${{ secrets.HOST }}
-#          user: ${{ secrets.USER }}
-#          pass: ${{ secrets.PASSWORD }}
-#          run: |
-#            source /etc/profile
-#            sh /home/software/restart.sh springboot-action-learning-1.0-SNAPSHOT.jar
+      - name: Run sshpass commands
+        uses: matheusvanzan/sshpass-action@v2
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          pass: ${{ secrets.PASSWORD }}
+          run: |
+            source /etc/profile
+            sh /home/software/springcloud/admin/restart.sh admin.jar
