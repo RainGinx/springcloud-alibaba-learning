@@ -59,7 +59,7 @@ public class LoginController {
         } catch (AuthenticationException ae) { // 其他身份验证异常
             msg = "登录异常，请联系管理员！";
         }catch (TokenExpiredException e){
-            msg ="登录超时，请重新登录";
+            msg ="登录过期，请重新登录";
         }
 
         if (loginSuccess) {
@@ -68,6 +68,7 @@ public class LoginController {
             //
             ret.setErrCode(0);
             ret.setMsg(msg);
+            ret.setData(jwtToken);
             return ret;
         } else {
             ret.setErrCode(401);
