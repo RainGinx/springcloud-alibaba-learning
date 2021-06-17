@@ -21,26 +21,35 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
       - name: Set SSH Environment
         run: |
+          pwd
           mkdir -p ~/.ssh/
           echo "${{ secrets.RSA_ALIYUN }}" > ~/.ssh/id_rsa.pub
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
-      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
-        name: scp
-        with:
-          local: './'                                                  # Local file path - REQUIRED false - DEFAULT ./
-          remote: '/home/software/springcloud'                                     # Remote file path - REQUIRED false - DEFAULT ~/
-          host: ${{ secrets.HOST }}                                      # Remote server address - REQUIRED true
-          user: ${{ secrets.USER }}                                      # Remote server user - REQUIRED true
-          password: ${{ secrets.PASSWORD }}                              # User password - REQUIRED at least one of "password" or "key"
-          pre_upload: echo "This will be executed before the upload!"  # Command to run via ssh before scp upload - REQUIRED false
-          post_upload: |                                                # Command to run via ssh after scp upload - REQUIRED false
-            echo "This will be executed after the upload!"
-#            source /etc/profile
-#            sh /home/software/springcloud/admin/restart.sh admin.jar
-          ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-          scp_options: -v -r -t /home/software/springcloud                                               # Flags to use during scp - REQUIRED false - DEFAULT ''
+      - name: Upload Files
+          uses: siva1024/scp-deployer@latest
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USER }}
+            key: ${{ secrets.RSA_ALIYUN }}
+            source: "entrypoint.sh"
+            target: "~/"
+#      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
+#        name: scp
+#        with:
+#          local: './'                                                  # Local file path - REQUIRED false - DEFAULT ./
+#          remote: '/home/software/springcloud'                                     # Remote file path - REQUIRED false - DEFAULT ~/
+#          host: ${{ secrets.HOST }}                                      # Remote server address - REQUIRED true
+#          user: ${{ secrets.USER }}                                      # Remote server user - REQUIRED true
+#          password: ${{ secrets.PASSWORD }}                              # User password - REQUIRED at least one of "password" or "key"
+#          pre_upload: echo "This will be executed before the upload!"  # Command to run via ssh before scp upload - REQUIRED false
+#          post_upload: |                                                # Command to run via ssh after scp upload - REQUIRED false
+#            echo "This will be executed after the upload!"
+##            source /etc/profile
+##            sh /home/software/springcloud/admin/restart.sh admin.jar
+#          ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+#          scp_options: -v -r -t /home/software/springcloud # Flags to use during scp - REQUIRED false - DEFAULT ''
 #      - name: Run sshpass commands
 #        uses: matheusvanzan/sshpass-action@v2
 #        with:
