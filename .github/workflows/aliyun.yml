@@ -29,7 +29,6 @@ jobs:
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
-          yum --enablerepo=epel -y install sshpass
       - name: Upload Files
         uses: appleboy/scp-action@v0.0.1
         with:
