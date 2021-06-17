@@ -21,7 +21,7 @@ jobs:
         run: |
           mvn --batch-mode --update-snapshots verify
           pwd
-          cd /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning
+          cd /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target
           ls
       - name: Set SSH Environment
         run: |
