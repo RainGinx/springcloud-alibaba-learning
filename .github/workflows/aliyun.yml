@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - action
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -53,12 +52,12 @@ jobs:
 ##            sh /home/software/springcloud/admin/restart.sh admin.jar
 #          ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 #          scp_options: -v -r -t /home/software/springcloud # Flags to use during scp - REQUIRED false - DEFAULT ''
-#      - name: Run sshpass commands
-#        uses: matheusvanzan/sshpass-action@v2
-#        with:
-#          host: ${{ secrets.HOST }}
-#          user: ${{ secrets.USER }}
-#          pass: ${{ secrets.PASSWORD }}
-#          run: |
-#            source /etc/profile
-#            sh /home/software/springcloud/admin/restart.sh admin.jar
+      - name: Run sshpass commands
+        uses: matheusvanzan/sshpass-action@v2
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          pass: ${{ secrets.PASSWORD }}
+          run: |
+            source /etc/profile
+            sh /home/software/springcloud/admin.sh admin.jar
