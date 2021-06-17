@@ -18,23 +18,26 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
+        run: |
+          mvn --batch-mode --update-snapshots verify
+          pwd
+          cd /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning
+          ls
       - name: Set SSH Environment
         run: |
-          pwd
           mkdir -p ~/.ssh/
           echo "${{ secrets.RSA_ALIYUN }}" > ~/.ssh/id_rsa.pub
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
-      - name: Upload Files
-        uses: siva1024/scp-deployer@v1.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.RSA_ALIYUN }}
-          source: "entrypoint.sh"
-          target: "~/"
+#      - name: Upload Files
+#        uses: siva1024/scp-deployer@v1.0
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USER }}
+#          key: ${{ secrets.RSA_ALIYUN }}
+#          source: "entrypoint.sh"
+#          target: "~/"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
 #        name: scp
 #        with:
