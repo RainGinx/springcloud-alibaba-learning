@@ -37,7 +37,7 @@ jobs:
           port: 22
           password: ${{ secrets.PASSWORD }}
           source: "admin/target/admin.jar"
-          target: "/home/software/springcloud"
+          target: "admin"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
 #        name: scp
 #        with:
