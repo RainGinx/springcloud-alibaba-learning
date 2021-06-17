@@ -34,6 +34,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
+          port: 22
           key: ${{secrets.RSA_ALIYUN}}
           source: "/home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target/admin.jar"
           target: "/home/software/springcloud"
