@@ -31,10 +31,11 @@ jobs:
           ls -l ~/.ssh/
           yum --enablerepo=epel -y install sshpass
       - name: Upload Files
-        uses: siva1024/scp-deployer@v1.0
+        uses: appleboy/scp-action@v0.0.1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
+          passphrase: ${{secrets.RSA_ALIYUN}}
           password: ${{ secrets.PASSWORD }}
           source: "/home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target/admin.jar"
           target: "/home/software/springcloud"
