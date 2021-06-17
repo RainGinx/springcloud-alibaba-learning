@@ -28,13 +28,13 @@ jobs:
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
       - name: Upload Files
-          uses: siva1024/scp-deployer@v1.0
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USER }}
-            key: ${{ secrets.RSA_ALIYUN }}
-            source: "entrypoint.sh"
-            target: "~/"
+        uses: siva1024/scp-deployer@v1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.RSA_ALIYUN }}
+          source: "entrypoint.sh"
+          target: "~/"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
 #        name: scp
 #        with:
