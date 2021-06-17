@@ -21,10 +21,8 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: |
-          pwd
           mvn --batch-mode --update-snapshots verify
-          cd /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target
-          ls
+          apt-get install sshpass
       - name: Set SSH Environment
         run: |
           mkdir -p ~/.ssh/
