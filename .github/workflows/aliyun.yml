@@ -29,13 +29,12 @@ jobs:
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
-      - name: Upload Files
+      - name: copy file via ssh password
         uses: appleboy/scp-action@v0.0.1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          passphrase: ${{secrets.RSA_ALIYUN}}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{secrets.RSA_ALIYUN}}
           source: "/home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target/admin.jar"
           target: "/home/software/springcloud"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
