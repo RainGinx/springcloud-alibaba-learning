@@ -29,6 +29,7 @@ jobs:
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
+          cd admin/target/
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
@@ -36,8 +37,8 @@ jobs:
           username: ${{ secrets.USER }}
           port: 22
           password: ${{ secrets.PASSWORD }}
-          source: "admin/target/admin.jar"
-          target: "/home/software/admin"
+          source: "admin.jar"
+          target: "/home/software/springcloud"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
 #        name: scp
 #        with:
