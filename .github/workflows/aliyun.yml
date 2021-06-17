@@ -28,7 +28,7 @@ jobs:
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
       - name: Upload Files
-          uses: siva1024/scp-deployer@latest
+          uses: siva1024/scp-deployer@v1.0
           with:
             host: ${{ secrets.HOST }}
             username: ${{ secrets.USER }}
