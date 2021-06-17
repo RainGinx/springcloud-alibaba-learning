@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        run: pwd
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
@@ -19,8 +20,8 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: |
-          mvn --batch-mode --update-snapshots verify
           pwd
+          mvn --batch-mode --update-snapshots verify
           cd /home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target
           ls
       - name: Set SSH Environment
@@ -30,14 +31,14 @@ jobs:
           cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
           chmod 700 ~/.ssh && chmod 700 ~/.ssh/*
           ls -l ~/.ssh/
-#      - name: Upload Files
-#        uses: siva1024/scp-deployer@v1.0
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USER }}
-#          key: ${{ secrets.RSA_ALIYUN }}
-#          source: "entrypoint.sh"
-#          target: "~/"
+      - name: Upload Files
+        uses: siva1024/scp-deployer@v1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.RSA_ALIYUN }}
+          source: "/home/runner/work/springcloud-alibaba-learning/springcloud-alibaba-learning/admin/target/admin.jar"
+          target: "/home/software/springcloud"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
 #        name: scp
 #        with:
