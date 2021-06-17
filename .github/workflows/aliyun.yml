@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           port: 22
-          password: ${{ secrets.RSA_ALIYUN }}
+          password: ${{ secrets.PASSWORD }}
           source: "admin/target/admin.jar"
           target: "/home/software/admin"
 #      - uses: mdallasanta/ssh-scp-deploy@v1.0.4
